@@ -24,15 +24,16 @@ interface PreviousProps {
   currentValue: number;
   previousValue: number;
   formatter: Unary<number, string>;
+  lowerIsBetter?: boolean;
 }
 
-const Previous: React.SFC<PreviousProps> = ({ currentValue, previousValue, formatter }) => {
+const Previous: React.SFC<PreviousProps> = ({ currentValue, previousValue, lowerIsBetter, formatter }) => {
   return <React.Fragment>
     <div className="measure-value measure-value--previous">
       {formatter(previousValue)}
     </div>
     <div className="measure-delta-value">
-      <Delta previousValue={previousValue} currentValue={currentValue} formatter={formatter}/>
+      <Delta previousValue={previousValue} currentValue={currentValue} formatter={formatter} lowerIsBetter={lowerIsBetter} />
     </div>
   </React.Fragment>;
 };
@@ -43,12 +44,17 @@ export interface TotalProps {
   value?: number;
   previous?: number;
   formatter: Unary<number, string>;
+  lowerIsBetter?: boolean;
 }
 
-export const Total: React.SFC<TotalProps> = ({ ident, name, value, previous, formatter }) => {
+export const Total: React.SFC<TotalProps> = ({ ident, name, value, previous, lowerIsBetter, formatter }) => {
   return <div className="total" key={ident}>
     <div className="measure-name" title={name}>{name}</div>
     <div className="measure-value">{value ? formatter(value) : "-"}</div>
-    {isTruthy(previous) && <Previous currentValue={value} previousValue={previous} formatter={formatter}/>}
+    {isTruthy(previous) && <Previous
+      currentValue={value}
+      previousValue={previous}
+      lowerIsBetter={lowerIsBetter}
+      formatter={formatter} />}
   </div>;
 };

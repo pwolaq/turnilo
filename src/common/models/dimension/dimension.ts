@@ -80,7 +80,7 @@ export class Dimension implements Instance<DimensionValue, DimensionJS> {
   static fromJS(parameters: DimensionJS): Dimension {
     const parameterExpression = (parameters as any).expression; // Back compat
 
-    const value: DimensionValue = {
+    const value: DimensicuonValue = {
       name: parameters.name,
       title: parameters.title,
       description: parameters.description,

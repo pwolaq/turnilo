@@ -67,7 +67,6 @@ export interface CubeViewLayout {
 export interface CubeViewProps {
   initTimekeeper?: Timekeeper;
   maxFilters?: number;
-  maxSplits?: number;
   user?: User;
   hash: string;
   updateViewHash: (newHash: string, force?: boolean) => void;
@@ -103,10 +102,7 @@ export interface DataSetWithTabOptions {
 }
 
 export class CubeView extends React.Component<CubeViewProps, CubeViewState> {
-  static defaultProps: Partial<CubeViewProps> = {
-    maxFilters: 20,
-    maxSplits: 3
-  };
+  static defaultProps: Partial<CubeViewProps> = { maxFilters: 20 };
 
   public mounted: boolean;
   private clicker: Clicker;

@@ -74,6 +74,7 @@ export class BaseVisualization<S extends BaseVisualizationState> extends React.C
 
   protected makeQuery(essence: Essence, timekeeper: Timekeeper): Expression {
     const { splits, colors, dataCube } = essence;
+    if (splits.length() > dataCube.getMaxSplits()) throw new Error(`Too many splits in query. DataCube "${dataCube.name}" supports only ${dataCube.getMaxSplits()} splits`);
     const measures = essence.getEffectiveMeasures();
 
     const $main = $("main");
@@ -163,7 +164,6 @@ export class BaseVisualization<S extends BaseVisualizationState> extends React.C
     }
 
     if (splits.length() > 0) {
-      if (splits.length() > dataCube.getMaxSplits()) throw new Error(`Too many splits in query. DataCube "${dataCube.name}" supports only ${dataCube.getMaxSplits()} splits`);
       return queryWithMeasures.apply(SPLIT, applySplit(0));
     }
     return queryWithMeasures;
